@@ -1,3 +1,7 @@
 .columnBox {
     -fx-background-color: #333333;
 }
+
+.placeHolder {
+    -fx-background-color: #FFFFFF;
+}

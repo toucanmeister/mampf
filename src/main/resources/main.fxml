@@ -1,0 +1,63 @@
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+<?import java.net.URL?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.collections.FXCollections?>
+<?import mampf.Recipe?>
+<HBox fx:controller="mampf.Controller"
+      xmlns:fx="http://javafx.com/fxml" alignment="center">
+
+    <stylesheets>
+        <URL value="@style.css"/>
+    </stylesheets>
+
+    <VBox alignment="center" styleClass="columnBox">
+        <Rectangle styleClass="placeHolder"/>
+        <TableView fx:id="recipeTableView">
+            <columns>
+                <TableColumn fx:id="idColumn" text="ID" prefWidth="20">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="id"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="titleColumn" text="Titel" prefWidth="100">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="title"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="minutesColumn" text="Minuten" prefWidth="30">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="minutes"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="bookTitleColumn" text="Buch" prefWidth="100">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="bookTitle"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="pageColumn" text="Seite" prefWidth="30">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="page"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="ratingColumn" text="Rating" prefWidth="100">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="rating"/>
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <Recipe id="1" title="testTitle" minutes="45" bookTitle="Jamie's Veggies" page="23" rating="Sehr Gut"/>
+                </FXCollections>
+            </items>
+        </TableView>
+    </VBox>
+
+    <VBox alignment="center" styleClass="columnBox">
+    </VBox>
+</HBox>
