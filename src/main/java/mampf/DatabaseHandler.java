@@ -1,9 +1,8 @@
 package mampf;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Collection of methods that involve communicating
@@ -14,6 +13,7 @@ public class DatabaseHandler {
 
     DatabaseHandler(String path) {
         connectToDb(path);
+        createTables();
     }
 
     public void connectToDb(String path) {
@@ -31,6 +31,30 @@ public class DatabaseHandler {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public List<Recipe> getAllRecipes() {
+        ArrayList<Recipe> recipeList = new ArrayList<>();
+        try {
+            Statement statement = db.createStatement();
+            ResultSet rsRecipe = statement.executeQuery("SELECT * FROM recipes");
+            while(rsRecipe.next()) {
+                int id = rsRecipe.getInt("id");
+                String title = rsRecipe.getString("title");
+                int minutes = rsRecipe.getInt("minutes");
+                int page = rsRecipe.getInt("page");
+                String rating = rsRecipe.getString("rating");
+
+                statement = db.createStatement();
+                ResultSet rsBook = statement.executeQuery("SELECT title FROM books WHERE id = " + rsRecipe.getInt("book_id"));
+                rsBook.next();
+                String bookTitle = rsBook.getString("title");
+                recipeList.add(new Recipe(id, title, minutes, bookTitle, page, rating));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return recipeList;
     }
 
 

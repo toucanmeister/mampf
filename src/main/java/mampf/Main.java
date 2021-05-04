@@ -15,11 +15,17 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("main.fxml")));
+        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getClassLoader().getResource("main.fxml")));
+        Parent root = loader.load();
+
+        db = new DatabaseHandler(path);
+        Controller controller = loader.getController();
+        controller.setDatabaseHandler(db);
+
         primaryStage.setTitle("Mampf");
         primaryStage.setScene(new Scene(root, 1280, 720));
         primaryStage.show();
-        db = new DatabaseHandler(path);
+
     }
 
     @Override
